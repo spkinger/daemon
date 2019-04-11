@@ -208,6 +208,7 @@ After={{.Dependencies}}
 PIDFile=/var/run/{{.Name}}.pid
 ExecStartPre=/bin/rm -f /var/run/{{.Name}}.pid
 ExecStart={{.Path}} {{.Args}}
+ExecReload=/bin/kill -USR2 $MAINPID
 Restart=on-failure
 
 [Install]
