@@ -178,6 +178,14 @@ func (linux *upstartRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+func (linux *upstartRecord) SetUser(user string) {
+
+}
+
+func (linux *upstartRecord) SetGroup(group string) {
+
+}
+
 // Run - Run service
 func (linux *upstartRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + linux.description + ":"

@@ -295,6 +295,14 @@ loop:
 	return
 }
 
+func (linux *windowsRecord) SetUser(user string) {
+
+}
+
+func (linux *windowsRecord) SetGroup(group string) {
+
+}
+
 func (windows *windowsRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + windows.description + ":"
 

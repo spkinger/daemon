@@ -200,6 +200,14 @@ func (linux *systemVRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+func (linux *systemVRecord) SetUser(user string) {
+
+}
+
+func (linux *systemVRecord) SetGroup(group string) {
+
+}
+
 // Run - Run service
 func (linux *systemVRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + linux.description + ":"

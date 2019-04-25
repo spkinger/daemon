@@ -81,16 +81,27 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
+	userStr := ""
+	groupStr := ""
+	if systemdUser != "" {
+		userStr = "User="+systemdUser
+	}
+	if systemdGroup != "" {
+		groupStr = "Group="+systemdGroup
+	}
+
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Description, Dependencies, Path, Args string
+			Name, Description, Dependencies, Path, Args, User, Group string
 		}{
 			linux.name,
 			linux.description,
 			strings.Join(linux.dependencies, " "),
 			execPatch,
 			strings.Join(args, " "),
+			userStr,
+			groupStr,
 		},
 	); err != nil {
 		return installAction + failed, err
@@ -192,6 +203,18 @@ func (linux *systemDRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+var systemdUser = ""
+var systemdGroup = ""
+// set process user; need set before install
+func (linux *systemDRecord) SetUser(user string) {
+	systemdUser = user
+}
+
+// set process user group; need set before install
+func (linux *systemDRecord) SetGroup(group string) {
+	systemdGroup = group
+}
+
 // Run - Run service
 func (linux *systemDRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + linux.description + ":"
@@ -210,6 +233,8 @@ ExecStartPre=/bin/rm -f /var/run/{{.Name}}.pid
 ExecStart={{.Path}} {{.Args}}
 ExecReload=/bin/kill -USR2 $MAINPID
 Restart=on-failure
+{{.User}}
+{{.Group}}
 
 [Install]
 WantedBy=multi-user.target

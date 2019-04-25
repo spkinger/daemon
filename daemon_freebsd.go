@@ -227,6 +227,14 @@ func (bsd *bsdRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+func (linux *bsdRecord) SetUser(user string) {
+
+}
+
+func (linux *bsdRecord) SetGroup(group string) {
+
+}
+
 // Run - Run service
 func (bsd *bsdRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + bsd.description + ":"

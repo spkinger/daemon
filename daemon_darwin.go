@@ -186,6 +186,14 @@ func (darwin *darwinRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+func (linux *darwinRecord) SetUser(user string) {
+
+}
+
+func (linux *darwinRecord) SetGroup(group string) {
+
+}
+
 // Run - Run service
 func (darwin *darwinRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + darwin.description + ":"

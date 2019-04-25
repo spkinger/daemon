@@ -175,6 +175,12 @@ type Daemon interface {
 	// Status - check the service status
 	Status() (string, error)
 
+	// set process user
+	SetUser(user string)
+
+	// set process user group
+	SetGroup(group string)
+
 	// Run - run executable service
 	Run(e Executable) (string, error)
 }
